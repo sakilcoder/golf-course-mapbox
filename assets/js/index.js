@@ -7,18 +7,18 @@ map = new mapboxgl.Map({
     zoom: 15
 });
 
-// map.on('load', () => {
-//     map.addSource('golfCourse', {
-//         'type': 'raster',
-//         'url': 'mapbox://sakilcodergeo.doipdgax'
-//     });
+map.on('load', () => {
+    map.addSource('golfCourse', {
+        'type': 'raster',
+        'url': 'mapbox://sakilcodergeo.doipdgax'
+    });
 
-//     map.addLayer({
-//         'id': 'golfCourse',
-//         'source': 'golfCourse',
-//         'type': 'raster'
-//     });
-// });
+    map.addLayer({
+        'id': 'golfCourse',
+        'source': 'golfCourse',
+        'type': 'raster'
+    });
+});
 
 var geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
