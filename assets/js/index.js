@@ -47,10 +47,12 @@ map.on('click', (e) => {
 
     var battery_loc = document.getElementById("battery_loc");
     if (battery_loc.checked && !battery_loc.disabled) {
-        var batteryMarker = new mapboxgl.Marker()
+        var batteryMarker = new mapboxgl.Marker({
+            color: 'red'
+        })
         .setLngLat([ e.lngLat.lng, e.lngLat.lat])
         .addTo(map);
-        
+
         battery_loc.disabled=true;
     }
     

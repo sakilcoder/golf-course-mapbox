@@ -60,6 +60,7 @@ let setGolfCourse = function (g) {
     document.getElementById('golf_course').innerHTML = '<b>Golf Course: </b>' + g.place_name;
 
     toggleSidebar();
+    addBatteryCharge()
 }
 
 let startOver=function(){
