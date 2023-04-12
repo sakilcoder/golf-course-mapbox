@@ -81,3 +81,8 @@ body {
   #toggle-sidebar .close-icon {
     display: none;
   }
+
+  .crosshair-cursor {
+    cursor: crosshair;
+  }
+  

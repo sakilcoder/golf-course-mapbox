@@ -46,6 +46,8 @@ map.on('click', (e) => {
     console.log(e.lngLat);
 
     var battery_loc = document.getElementById("battery_loc");
+    var mark_hole_cb = document.getElementById("mark_hole_cb");
+
     if (battery_loc.checked && !battery_loc.disabled) {
         var batteryMarker = new mapboxgl.Marker({
             color: 'red'
@@ -53,7 +55,24 @@ map.on('click', (e) => {
         .setLngLat([ e.lngLat.lng, e.lngLat.lat])
         .addTo(map);
 
+        map.getCanvas().classList.remove('crosshair-cursor');
         battery_loc.disabled=true;
+        genHoleLayerControls();
+    } else if(mark_hole_cb.checked){
+
+        var markHoleLayer = new mapboxgl.Marker({
+            element: document.createElement('div'),
+            anchor: 'bottom',
+            color: 'green',
+            // font-size: '24px';
+          }).setLngLat([ e.lngLat.lng, e.lngLat.lat]).addTo(map);
+          markHoleLayer.getElement().innerHTML = '<i class="material-icons">golf_course</i>';
+
+        // var markHoleLayer = new mapboxgl.Marker({
+        //     color: 'green'
+        // })
+        // .setLngLat([ e.lngLat.lng, e.lngLat.lat])
+        // .addTo(map);
     }
     
     // var marker = new mapboxgl.Marker();
@@ -61,6 +80,19 @@ map.on('click', (e) => {
     // marker.addTo(map);
     
 });
+
+let battery_loc_checked=function(){
+    map.getCanvas().classList.add('crosshair-cursor');
+}
+let mark_hole_checked=function(){
+    var mark_hole_cb = document.getElementById("mark_hole_cb");
+    if(mark_hole_cb.checked){
+        map.getCanvas().classList.add('crosshair-cursor');
+    }else{
+        map.getCanvas().classList.remove('crosshair-cursor');
+    }
+}
+
 
 // map.addControl(
 //     new MapboxGeocoder({

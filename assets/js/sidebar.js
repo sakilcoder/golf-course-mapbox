@@ -30,9 +30,10 @@ let addBatteryCharge = function () {
     battery_charge.innerHTML=html;
 }
 
-let battery_loc_checked=function(){
-    console.log("ellepo");
-    map.style.cursor = "crosshair";
+let genHoleLayerControls=function(){
+    let html = '<label for="mark_hole_cb">Mark holes with a flag?</label> <input type="checkbox" id="mark_hole_cb" onchange="mark_hole_checked();" />';
+    let mark_hole = document.getElementById('mark_hole');
+    mark_hole.innerHTML=html;
 }
 
 let gc_name = localStorage.getItem("golf_course_name");
