@@ -15,6 +15,12 @@
     <link rel="stylesheet"
         href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css"
         type="text/css">
+
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.0/mapbox-gl-draw.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.0/mapbox-gl-draw.css"
+        type="text/css">
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -34,6 +40,13 @@
             <hr>
             <span id="mark_hole"></span>
             <hr>
+            <span id="green_poly">
+                <div class="calculation-box">
+                    <p>Click on the map to draw a polygon around the green: <span id="calculated-area"></span></p>
+                    
+                </div>
+            </span>
+            <hr>
             <button class="btn btn-warning btn-block" onclick="startOver();">Start Over</button>
         </div>
     </div>
@@ -42,8 +55,33 @@
         <i class="material-icons close-icon">close</i>
     </div>
 
+    <!-- Modal -->
+    <div id="mark_hole_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <!-- <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div> -->
+                <div class="modal-body">
+                    <form>
+                        <p>Hole number: <input id="hole_number" type="number" class="form-control" required></p>
+                        <p>Name: <input id="hole_name" type="text" class="form-control" required></p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <script src="assets/js/sidebar.js"></script>
     <script src="assets/js/index.js"></script>
+    <script src="assets/js/index-ext.js"></script>
 
 </body>
 

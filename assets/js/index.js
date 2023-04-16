@@ -7,18 +7,18 @@ map = new mapboxgl.Map({
     zoom: 15
 });
 
-map.on('load', () => {
-    map.addSource('golfCourse', {
-        'type': 'raster',
-        'url': 'mapbox://sakilcodergeo.doipdgax'
-    });
+// map.on('load', () => {
+//     map.addSource('golfCourse', {
+//         'type': 'raster',
+//         'url': 'mapbox://sakilcodergeo.doipdgax'
+//     });
 
-    map.addLayer({
-        'id': 'golfCourse',
-        'source': 'golfCourse',
-        'type': 'raster'
-    });
-});
+//     map.addLayer({
+//         'id': 'golfCourse',
+//         'source': 'golfCourse',
+//         'type': 'raster'
+//     });
+// });
 
 var geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
@@ -49,35 +49,50 @@ map.on('click', (e) => {
     var mark_hole_cb = document.getElementById("mark_hole_cb");
 
     if (battery_loc.checked && !battery_loc.disabled) {
+        
+        var img = new Image();
+        img.onload = function() {
+        // Add the image as a marker on the map
         var batteryMarker = new mapboxgl.Marker({
-            color: 'red'
-        })
-        .setLngLat([ e.lngLat.lng, e.lngLat.lat])
-        .addTo(map);
-
+            element: img,
+            anchor: 'bottom',
+            width: 24,
+            height: 24
+        }).setLngLat([e.lngLat.lng, e.lngLat.lat])
+            .addTo(map);
+        };
+        img.src = 'assets/images/battery-n.png';
+        
         map.getCanvas().classList.remove('crosshair-cursor');
         battery_loc.disabled=true;
         genHoleLayerControls();
-    } else if(mark_hole_cb.checked){
+    } else if(mark_hole_cb && mark_hole_cb.checked){
 
+        // Create a new Image object
+        var img = new Image();
+        img.onload = function() {
+        // Add the image as a marker on the map
         var markHoleLayer = new mapboxgl.Marker({
-            element: document.createElement('div'),
-            anchor: 'bottom',
-            color: 'green',
-            // font-size: '24px';
-          }).setLngLat([ e.lngLat.lng, e.lngLat.lat]).addTo(map);
-          markHoleLayer.getElement().innerHTML = '<i class="material-icons">golf_course</i>';
+                element: img,
+                anchor: 'bottom',
+            })
+            .setLngLat([e.lngLat.lng, e.lngLat.lat])
+            .addTo(map);
 
-        // var markHoleLayer = new mapboxgl.Marker({
-        //     color: 'green'
-        // })
-        // .setLngLat([ e.lngLat.lng, e.lngLat.lat])
-        // .addTo(map);
+            document.getElementById('hole_number').value='';
+            document.getElementById('hole_name').value='';
+            $("#mark_hole_modal").modal()
+
+            // var popup = new mapboxgl.Popup({ offset: 25 })
+            // .setHTML('<form><p>Hole number: <input type="number" class="form-control" required></p><p>Name: <input type="text" class="form-control" required></p></form>')
+            // .addTo(map);
+
+            // markHoleLayer.setPopup(popup);
+        };
+        img.src = 'assets/images/golf-n.png';
+
     }
     
-    // var marker = new mapboxgl.Marker();
-    // marker.setLngLat([ e.lngLat.lng, e.lngLat.lat]);
-    // marker.addTo(map);
     
 });
 
@@ -92,50 +107,4 @@ let mark_hole_checked=function(){
         map.getCanvas().classList.remove('crosshair-cursor');
     }
 }
-
-
-// map.addControl(
-//     new MapboxGeocoder({
-//     accessToken: mapboxgl.accessToken,
-//     mapboxgl: mapboxgl
-//     })
-// );
-    
-// const mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
-// mapboxClient.geocoding
-//     .forwardGeocode({
-//         query: 'Wellington, New Zealand',
-//         autocomplete: false,
-//         limit: 1
-//     })
-//     .send()
-//     .then((response) => {
-//         if (
-//             !response ||
-//             !response.body ||
-//             !response.body.features ||
-//             !response.body.features.length
-//         ) {
-//             console.error('Invalid response:');
-//             console.error(response);
-//             return;
-//         }
-//         const feature = response.body.features[0];
-
-//         // const map = new mapboxgl.Map({
-//         //     container: 'map',
-//         //     // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-//         //     style: 'mapbox://styles/mapbox/streets-v12',
-//         //     center: feature.center,
-//         //     zoom: 10
-//         // });
-
-//         // Create a marker and add it to the map.
-//         new mapboxgl.Marker().setLngLat(feature.center).addTo(map);
-//     });
-
-// // var marker = new mapboxgl.Marker(el)
-// //     .setLngLat([longitude, latitude])
-// //     .addTo(map);
-
 
